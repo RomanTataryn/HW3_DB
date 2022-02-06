@@ -1,7 +1,9 @@
 package com.tataryn;
 
+import java.sql.SQLException;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         System.out.println("First query: ReadersList");
         DbSelect.getAllReaders();
         System.out.println("Second query: Selected List of books");
