@@ -48,8 +48,6 @@ public class DbSelect {
                 " from books WHERE price >60 AND year_of_edition >2000";
         try (
                 final PreparedStatement preparedStatement = getConnection().prepareStatement(sql2);
-                //   preparedStatement.setDouble(1, 60);
-                //  preparedStatement.setInt(2, 2000);
                 final ResultSet resultSet = preparedStatement.executeQuery(sql2)) {
             while (resultSet.next()) {
                 Book book = buildBook(resultSet);
@@ -86,9 +84,8 @@ public class DbSelect {
                 System.out.print(" ");
                 System.out.print(resultSet.getString("first_name"));
                 System.out.print(", ");
-                System.out.print(resultSet.getString("passport_number"));
-                System.out.println("");
-            }
+                System.out.println(resultSet.getString("passport_number"));
+              }
 
         } catch (SQLException ex) {
             ex.printStackTrace();
