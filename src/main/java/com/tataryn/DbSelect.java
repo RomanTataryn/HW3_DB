@@ -9,21 +9,29 @@ public class DbSelect {
     public static final String userName = "root";
     public static final String password = "qwerty_777";
 
+    public static Connection getConnection() throws SQLException {
+
+
+            return DriverManager.getConnection(url, userName, password);
+
+
+    }
+
     public static List<Reader> getAllReaders() {
         List<Reader> readerList = new ArrayList<>();
-        try {
-            Connection connection = DriverManager.getConnection(url, userName, password);
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT id_reader, last_name, " +
-                    "first_name,passport_number, year_of_birth from readers ");
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
+        final String sql ="SELECT id_reader, last_name, first_name,passport_number, year_of_birth from readers ";
+        try (
+
+           final  PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
+           final ResultSet resultSet = preparedStatement.executeQuery(sql))
+        { while (resultSet.next()) {
                 Reader reader = buildreader(resultSet);
                 readerList.add(reader);
             }
             System.out.println(readerList);
-            resultSet.close();
-            preparedStatement.close();
-            connection.close();
+
+
+
         } catch (
                 SQLException ex) {
             ex.printStackTrace();
